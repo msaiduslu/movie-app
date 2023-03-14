@@ -35,6 +35,7 @@ const Navbar = () => {
                   style={{ height: "25px", width: "25px" }}
                   alt=""
                   loading="lazy"
+                  referrerPolicy="no-referrer"
                 />
               </span>
               <ul
