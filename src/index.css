@@ -3,7 +3,7 @@
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap");
 
-/** element bazında default olarak vermek istediğimiz stilleri base layer'da veriyoruz */
+
 @layer base {
   input {
     @apply block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-red-main appearance-none dark:text-white dark:border-red-main dark:focus:border-red-main focus:outline-none focus:ring-0 focus:border-red-main;
@@ -13,7 +13,7 @@
   }
 }
 
-/** component/class bazında default olarak vermek istediğimiz stilleri component layer'da veriyoruz */
+
 @layer components {
   .btn-danger {
     @apply focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-lg px-5 py-2.5 mr-2 mb-2 w-[300px] mt-[15px] dark:bg-red-main dark:hover:bg-red-700 dark:focus:ring-red-900;
@@ -26,6 +26,9 @@
   }
   .form-container form{
     @apply absolute inset-[2px] rounded-[8px] bg-gray-100 dark:bg-gray-dark-second z-[10] flex flex-col py-[50px] px-[40px]
+  }
+  .btn-icon{
+    @apply flex items-center p-2 mr-2 text-xs font-medium text-gray-700 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-500 dark:bg-gray-800 focus:outline-none dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700
   }
 }
 

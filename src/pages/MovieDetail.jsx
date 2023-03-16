@@ -23,13 +23,11 @@ const MovieDetail = () => {
     vote_count,
   } = movieDetails;
   useEffect(() => {
-    axios
-      .get(movieDetailBaseUrl)
-      .then((res) => setMovieDetails(res.data))
-      .catch((err) => console.log(err));
-    axios
-      .get(videoUrl)
-      .then((res) => setVideoKey(res.data.results[0].key))
+    Promise.all([axios.get(movieDetailBaseUrl), axios.get(videoUrl)])
+      .then((res) => [
+        setMovieDetails(res[0].data),
+        setVideoKey(res[1].data.results[0].key),
+      ])
       .catch((err) => console.log(err));
   }, [movieDetailBaseUrl, videoUrl]);
 
