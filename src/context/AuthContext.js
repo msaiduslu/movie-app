@@ -2,6 +2,7 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -15,7 +16,9 @@ import { toastErrorNotify, toastSuccessNotify } from "../helpers/ToastNotify";
 export const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState("");
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(sessionStorage.getItem("user") || false)
+  );
   const navigate = useNavigate();
   useEffect(() => {
     userObserver();
@@ -58,8 +61,13 @@ const AuthContextProvider = ({ children }) => {
       if (user) {
         const { email, displayName, photoURL } = user;
         setCurrentUser({ email, displayName, photoURL });
+        sessionStorage.setItem(
+          "user",
+          JSON.stringify({ email, displayName, photoURL })
+        );
       } else {
         setCurrentUser(false);
+        sessionStorage.clear();
       }
     });
   };
@@ -77,12 +85,19 @@ const AuthContextProvider = ({ children }) => {
       });
   };
 
+  const forgotPassword = (email) => {
+    sendPasswordResetEmail(auth, email)
+      .then(() => toastSuccessNotify("password reset email sent!"))
+      .catch((error) => toastErrorNotify(error.message));
+  };
+
   const values = {
     logOut,
     signIn,
     createUser,
     currentUser,
     signUpProvider,
+    forgotPassword,
   };
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
