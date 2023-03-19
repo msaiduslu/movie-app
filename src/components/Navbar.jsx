@@ -2,15 +2,19 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import avatar from "../assets/icons/avatar.png";
 import { AuthContext } from "../context/AuthContext";
+import { MovieContext } from "../context/MovieContext";
+import FavComp from "./FavComp";
 import Switch from "./Switch";
 
 const Navbar = () => {
   const { currentUser } = useContext(AuthContext);
   const { logOut } = useContext(AuthContext);
+  const { favorites } = useContext(MovieContext);
+  const fav = favorites.length;
   return (
     <div>
       <nav
-        className="flex w-full flex-wrap items-center justify-between bg-neutral-100 dark:bg-gray-900  py-3 dark:text-neutral-200 shadow-lg lg:flex-wrap lg:justify-start fixed top-0 z-20"
+        className="flex w-full flex-wrap items-center justify-between bg-blue-300 dark:bg-gray-900  py-3 dark:text-neutral-200 shadow-lg lg:flex-wrap lg:justify-start fixed top-0 z-20"
         data-te-navbar-ref
       >
         <div className="flex w-full flex-wrap items-center justify-between px-6">
@@ -23,6 +27,7 @@ const Navbar = () => {
               <h5 className="mr-2 capitalize">{currentUser.displayName}</h5>
             )}
             <Switch />
+            <FavComp fav={fav} />
             <div className="relative" data-te-dropdown-ref>
               <span
                 className="hidden-arrow flex items-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none"
@@ -64,14 +69,16 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <span
-                    className="block w-full whitespace-nowrap bg-transparent py-2 px-4 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
-                    role="button"
-                    data-te-dropdown-item-ref
-                    onClick={() => logOut()}
-                  >
-                    Logout
-                  </span>
+                  {currentUser && (
+                    <span
+                      className="block w-full whitespace-nowrap bg-transparent py-2 px-4 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
+                      role="button"
+                      data-te-dropdown-item-ref
+                      onClick={() => logOut()}
+                    >
+                      Logout
+                    </span>
+                  )}
                 </li>
               </ul>
             </div>

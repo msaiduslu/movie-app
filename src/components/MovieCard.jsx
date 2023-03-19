@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import FavIcon from "../assets/icons/FavIcon";
 import { AuthContext } from "../context/AuthContext";
+import { MovieContext } from "../context/MovieContext";
+import { toastWarnNotify } from "../helpers/ToastNotify";
 
 const IMG_API = "https://image.tmdb.org/t/p/w1280";
 const defaultImage =
@@ -8,6 +11,7 @@ const defaultImage =
 
 const MovieCard = ({ title, poster_path, overview, vote_average, id }) => {
   const { currentUser } = useContext(AuthContext);
+  const { addToFavorites, favorites } = useContext(MovieContext);
 
   const getVoteClass = (vote) => {
     if (vote >= 8) {
@@ -19,12 +23,24 @@ const MovieCard = ({ title, poster_path, overview, vote_average, id }) => {
     }
   };
   const navigate = useNavigate();
+  const isFavorite = favorites.some((item) => item.id === id);
   return (
     <div
       className="movie"
       id="container"
-      onClick={() => navigate("details/" + id)}
+      onClick={() => {
+        navigate("details/" + id);
+        !currentUser && toastWarnNotify("Please log in to see details");
+      }}
     >
+      <FavIcon
+        className="absolute top-2 right-2 w-6 h-6 hover:scale-110 text-white"
+        onClick={(e) => {
+          e.stopPropagation();
+          addToFavorites({ title, poster_path, overview, vote_average, id });
+        }}
+        isFavorite={isFavorite}
+      />
       <img
         loading="lazy"
         src={poster_path ? IMG_API + poster_path : defaultImage}

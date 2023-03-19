@@ -7,6 +7,9 @@ const FEATURED_API = `https://api.themoviedb.org/3/discover/movie?api_key=${API_
 const MovieContextProvider = ({ children }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [favorites, setFavorites] = useState(
+    JSON.parse(localStorage.getItem("favorites")) || []
+  );
   useEffect(() => {
     getMovies(FEATURED_API);
   }, []);
@@ -19,7 +22,19 @@ const MovieContextProvider = ({ children }) => {
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
   };
-  const values = { movies, loading, getMovies };
+  const addToFavorites = (movie) => {
+    let isFavorite = favorites.some((item) => item.id === movie.id);
+    if (isFavorite) {
+      let newFavorites = favorites.filter((item) => item.id !== movie.id);
+      setFavorites(newFavorites);
+      localStorage.setItem("favorites", JSON.stringify(newFavorites));
+    } else {
+      let newFavorites = [...favorites, movie];
+      setFavorites(newFavorites);
+      localStorage.setItem("favorites", JSON.stringify(newFavorites));
+    }
+  };
+  const values = { movies, loading, getMovies, addToFavorites, favorites };
   return (
     <MovieContext.Provider value={values}>{children}</MovieContext.Provider>
   );
