@@ -1,6 +1,6 @@
 {
-  "homepage": "https://msaiduslu.github.io/movie-app",
-  "name": "movie-app-1",
+  "homepage": ".",
+  "name": "movie-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

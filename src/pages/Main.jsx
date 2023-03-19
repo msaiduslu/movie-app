@@ -24,6 +24,7 @@ const Main = () => {
       toastWarnNotify("Please enter a text");
     }
   };
+
   return (
     <>
       <form onSubmit={handleSubmit} className="flex justify-center p-2">
