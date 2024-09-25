@@ -20,19 +20,26 @@ Project aims to create a Movie App.
 │    ├── auth
 │    │     └── firebase.js
 │    ├── components
-│    │     ├── MovieCard.js
+│    │     ├── FavComp.jsx
+│    │     ├── MovieCard.jsx
+│    │     ├── Switch.jsx
+│    │     ├── VideoSection.jsx
 │    │     └── Navbar.js
 │    ├── context
 │    │     └── AuthContext.js
+│    │     └── MovieContext.js
+│    ├── helpers
+│    │     └── ToastNotify.js
 │    ├── pages
-│    │     ├── Login.js
-│    │     ├── Register.js
-│    │     ├── Main.js
-│    │     └── MovieDetail.js
+│    │     ├── Login.jsx
+│    │     ├── Register.jsx
+│    │     ├── Main.jsx
+│    │     ├── Favorites.jsx
+│    │     └── MovieDetail.jsx
 │    ├── router
-│    │     └── Router.js
+│    │     └── AppRouter.jsx
+│    │     └── PrivateRouter.jsx
 │    ├── App.js
-│    ├── App.css
 │    ├── index.js
 │    └── index.css
 ├── package.json
